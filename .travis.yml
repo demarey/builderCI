@@ -12,7 +12,6 @@ env:
 
 install:
    - source build_env_vars
-#   - ./build_clone.sh -g "git://github.com/dalehenrich/metacello-work.git"
    - ./build_image.sh
 
 script:
