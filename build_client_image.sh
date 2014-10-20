@@ -41,7 +41,7 @@ case "$ST" in
   PharoCore-1.3)
     pharoGetURL="get.pharo.org/13"
     ;;
-  PharoCore-1.4)
+  Pharo-1.4)
     pharoGetURL="get.pharo.org/14"
     ;;
   Pharo-2.0)
