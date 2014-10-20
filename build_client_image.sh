@@ -65,7 +65,7 @@ case "$ST" in
     cd PharoCore-1.1.2
     IMAGE_BASE_NAME=PharoCore-1.1.2-11422
   ;;
-  # PharoCore-1.3
+  # PharoCore-1.3 - don't use zeroconf script as the newer vms apparently cause package load errors...see Issue #69
   PharoCore-1.3)
   cd $IMAGES_PATH
   wget -q https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
