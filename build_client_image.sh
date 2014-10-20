@@ -70,7 +70,7 @@ case "$ST" in
     mkdir $ST
     cd $ST
     wget --quiet -O - get.pharo.org/travis+vm | bash
-    wget --quiet -O - ${paroGetURL} | bash
+    wget --quiet -O - ${pharoGetURL} | bash
     IMAGE_BASE_NAME=Pharo
     # move VM to $IMAGES_PATH 
     mv pharo ..
