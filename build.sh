@@ -9,7 +9,7 @@
 
 case "$ST" in
 
-  PharoCore-1.0|PharoCore-1.1|PharoCore-1.2|PharoCore-1.3|Pharo-1.4)
+  PharoCore-1.1|PharoCore-1.2|PharoCore-1.3|Pharo-1.4)
     # vim complains about `;&`, but it is okay?
     ;&
   Pharo-2.0)

@@ -35,14 +35,28 @@ IMAGE_BASE_NAME=$ST
 IMAGE_TARGET_NAME=$ST
 
 case "$ST" in
+  PharoCore-1.2)
+    pharoGetURL="get.pharo.org/12"
+    ;;
+  PharoCore-1.3)
+    pharoGetURL="get.pharo.org/13"
+    ;;
+  Pharo-1.4)
+    pharoGetURL="get.pharo.org/14"
+    ;;
+  Pharo-2.0)
+    pharoGetURL="get.pharo.org/20"
+    ;;
+  Pharo-3.0)
+    pharoGetURL="get.pharo.org/30"
+    ;;
+  *)
+    # noop
+    ;;
+esac
 
-  # PharoCore-1.0
-  PharoCore-1.0)
-    cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/26832/PharoCore-1.0.zip
-    unzip PharoCore-1.0.zip
-    cd PharoCore-1.0
-  ;;
+case "$ST" in
+
   # PharoCore-1.1
   PharoCore-1.1)
     cd $IMAGES_PATH
@@ -51,51 +65,25 @@ case "$ST" in
     cd PharoCore-1.1.2
     IMAGE_BASE_NAME=PharoCore-1.1.2-11422
   ;;
-  # PharoCore-1.2
-  PharoCore-1.2)
-    cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/28553/PharoCore-1.2.2-12353.zip
-    unzip PharoCore-1.2.2-12353
-    cd PharoCore-1.2.2-12353
-    IMAGE_BASE_NAME=PharoCore-1.2.2-12353
-  ;;
-  # PharoCore-1.3
+  # PharoCore-1.3 - don't use zeroconf script as the newer vms apparently cause package load errors...see Issue #69
   PharoCore-1.3)
-    cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
-    unzip PharoCore-1.3-13328.zip
-    cd PharoCore-1.3
+  cd $IMAGES_PATH
+  wget -q https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
+  unzip PharoCore-1.3-13328.zip
+  cd PharoCore-1.3
   ;;
-  # Pharo-1.4
-  Pharo-1.4)
+  Pharo*)
     cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/31259/Pharo-1.4-14557.zip
-    unzip Pharo-1.4-14557
-    cd Pharo-1.4
-  ;;
-  # Pharo-2.0
-  Pharo-2.0)
-    cd $IMAGES_PATH
-    mkdir Pharo-2.0
-    cd Pharo-2.0
-    wget --quiet -O - get.pharo.org/20+vm | bash
+    mkdir $ST
+    cd $ST
+    wget --quiet -O - get.pharo.org/travis+vm | bash
+    wget --quiet -O - ${pharoGetURL} | bash
     IMAGE_BASE_NAME=Pharo
     # move VM to $IMAGES_PATH 
     mv pharo ..
-    mv pharo-vm ..
+    mv pharo-vm ..    
   ;;
-  # Pharo-3.0
-  Pharo-3.0)
-    cd $IMAGES_PATH
-    mkdir Pharo-3.0
-    cd Pharo-3.0
-    wget --quiet -O - get.pharo.org/30+vm | bash
-    IMAGE_BASE_NAME=Pharo
-    # move VM to $IMAGES_PATH 
-    mv pharo ..
-    mv pharo-vm ..
-  ;;
-  # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
+# Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
     cd $IMAGES_PATH
     wget -q http://ftp.squeak.org/4.3/Squeak4.3.zip
