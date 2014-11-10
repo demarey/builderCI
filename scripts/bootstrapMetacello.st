@@ -33,11 +33,11 @@ true ifTrue: [
 "Issue #72: bootstrap using baseline and explicit commit until we get bugs ironed out and can release Metacello Preview 1.0.0-beta.32.17"
       (Smalltalk at: #Metacello) new
         baseline: 'Metacello';
-        repository: 'github://dalehenrich/metacello-work:76e29e6d8c82d9eecf3456cee9a658efc9914824/repository';
+        repository: 'github://dalehenrich/metacello-work:53ec20a284c9a42125918aaef150cef5608d9550/repository';
         get.
       (Smalltalk at: #Metacello) new
          baseline: 'Metacello';
-        repository: 'github://dalehenrich/metacello-work:76e29e6d8c82d9eecf3456cee9a658efc9914824/repository';
+        repository: 'github://dalehenrich/metacello-work:53ec20a284c9a42125918aaef150cef5608d9550/repository';
         load 
 ] ifFalse: [
       (Smalltalk at: #Metacello) new
