@@ -30,14 +30,14 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
             version: #'previewBootstrap') load ].
       Transcript cr; show: 'Install stable version of Metacello Preview'.
 true ifTrue: [
-"Issue #72: bootstrap using baseline and explicit commit until we get bugs ironed out and can release Metacello Preview 1.0.0-beta.32.17"
+"Issue #72: bootstrap using baseline and config_dev branch until we get bugs ironed out and can release Metacello Preview 1.0.0-beta.32.17"
       (Smalltalk at: #Metacello) new
         baseline: 'Metacello';
-        repository: 'github://dalehenrich/metacello-work:53ec20a284c9a42125918aaef150cef5608d9550/repository';
+        repository: 'github://dalehenrich/metacello-work:config_dev/repository';
         get.
       (Smalltalk at: #Metacello) new
          baseline: 'Metacello';
-        repository: 'github://dalehenrich/metacello-work:53ec20a284c9a42125918aaef150cef5608d9550/repository';
+        repository: 'github://dalehenrich/metacello-work:config_dev/repository';
         load 
 ] ifFalse: [
       (Smalltalk at: #Metacello) new
