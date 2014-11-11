@@ -33,12 +33,12 @@ true ifTrue: [
 "Issue #72: bootstrap using baseline and config_dev branch until we get bugs ironed out and can release Metacello Preview 1.0.0-beta.32.17"
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
-        repository: 'github://dalehenrich/metacello-work:config_dev/repository';
+        repository: 'github://dalehenrich/metacello-work:config_dev';
         get.
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
         version: #stable;
-        repository: 'github://dalehenrich/metacello-work:config_dev/repository';
+        repository: 'github://dalehenrich/metacello-work:config_dev';
         load 
 ] ifFalse: [
       (Smalltalk at: #Metacello) new
