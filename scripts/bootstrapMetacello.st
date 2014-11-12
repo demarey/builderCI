@@ -29,8 +29,9 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
           ((Smalltalk at: #ConfigurationOfMetacello) project 
             version: #'previewBootstrap') load ].
       Transcript cr; show: 'Install stable version of Metacello Preview'.
-true ifTrue: [
-"Issue #72: bootstrap using baseline and config_dev branch until we get bugs ironed out and can release Metacello Preview 1.0.0-beta.32.17"
+false ifTrue: [
+"enable and edit this block when it's necessary to customize how 
+ MetacelloPreview is loaded ... during development only..."
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
         repository: 'github://dalehenrich/metacello-work:config_dev';
@@ -50,10 +51,9 @@ true ifTrue: [
         version: #'stable'; 
         repository: 'github://dalehenrich/metacello-work:configuration';
         load 
-].
-]] 
-	on: Warning
-	do: [:ex |
-		Transcript cr; show: 'Warning: ', ex description.
-		ex resume: true].
+]]] 
+    on: Warning
+    do: [:ex |
+	Transcript cr; show: 'Warning: ', ex description.
+	ex resume: true].
 
