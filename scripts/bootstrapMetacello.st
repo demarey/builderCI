@@ -29,18 +29,31 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
           ((Smalltalk at: #ConfigurationOfMetacello) project 
             version: #'previewBootstrap') load ].
       Transcript cr; show: 'Install stable version of Metacello Preview'.
+false ifTrue: [
+"enable and edit this block when it's necessary to customize how 
+ MetacelloPreview is loaded ... during development only..."
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
-        version: #'stable'; 
+        repository: 'github://dalehenrich/metacello-work:config_dev';
+        get.
+      (Smalltalk at: #Metacello) new
+        configuration: 'MetacelloPreview';
+        version: #stable;
+        repository: 'github://dalehenrich/metacello-work:config_dev';
+        load 
+] ifFalse: [
+      (Smalltalk at: #Metacello) new
+        configuration: 'MetacelloPreview';
         repository: 'github://dalehenrich/metacello-work:configuration';
         get.
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
         version: #'stable'; 
         repository: 'github://dalehenrich/metacello-work:configuration';
-        load ]] 
-	on: Warning
-	do: [:ex |
-		Transcript cr; show: 'Warning: ', ex description.
-		ex resume: true].
+        load 
+]]] 
+    on: Warning
+    do: [:ex |
+	Transcript cr; show: 'Warning: ', ex description.
+	ex resume: true].
 
