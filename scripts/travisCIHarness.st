@@ -25,7 +25,7 @@
     Smalltalk
         at: #'TravisCISuccessNoFailure'
         put: [ :successFilename  |
-          MetacelloBuilderTravisCI successOnNoFailures: successFilename ]
+          MetacelloBuilderTravisCI successOnNoFailures: successFilename ].
 
 "Use this expression when you want to a custom TestSuite" 
 
