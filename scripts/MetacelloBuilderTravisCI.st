@@ -61,7 +61,7 @@ retry: aBlock retryCount: retryCount
 !MetacelloBuilderTravisCI class methodsFor: 'test harness' stamp: 'dkh 9/4/2012 18:31'!
 runHarnessFor: configurationClassNameList successFilename: successFilename failFilename: failFilename
     [ 
-    | suite result resultsFileName |
+    | suite |
     suite := TestCase suiteClass named: configurationClassNameList printString , ' Test Suite'.
     configurationClassNameList
         do: [ :className | 
@@ -72,6 +72,12 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
                 do: [ :cl | 
                     cl isAbstract
                         ifFalse: [ suite addTest: cl buildSuiteFromSelectors ] ] ].
+    self runTestSuite: suite successFilename: successFilename failFilename: failFilename! !
+
+!MetacelloBuilderTravisCI class methodsFor: 'test harness' stamp: 'dkh 11/20/2014 15:56'!
+runTestSuite: suite successFilename: successFilename failFilename: failFilename
+    [ 
+    | result resultsFileName |
     result := suite run.
     resultsFileName := result defects isEmpty
         ifTrue: [ successFilename ]
