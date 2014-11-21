@@ -60,7 +60,6 @@ retry: aBlock retryCount: retryCount
 
 !MetacelloBuilderTravisCI class methodsFor: 'test harness' stamp: 'dkh 9/4/2012 18:31'!
 runHarnessFor: configurationClassNameList successFilename: successFilename failFilename: failFilename
-    [ 
     | suite |
     suite := TestCase suiteClass named: configurationClassNameList printString , ' Test Suite'.
     configurationClassNameList
