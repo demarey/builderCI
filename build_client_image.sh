@@ -129,7 +129,7 @@ case "$ST" in
     cd TrunkImage
     wget -q http://build.squeak.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/TrunkImage.zip
     unzip TrunkImage.zip
-    wget -q http://ftp.squeak.org/4.1/SqueakV41.sources.gz
+    wget -q http://ftp.squeak.org/4.5/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=TrunkImage
     ;;
