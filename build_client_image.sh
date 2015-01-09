@@ -105,7 +105,7 @@ case "$ST" in
     cd Squeak4.4
     wget -q http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
     unzip Squeak4.4-12327.zip
-    wget -q http://ftp.squeak.org/4.4/SqueakV41.sources.gz
+    wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.4-12327
     ;;
@@ -118,7 +118,7 @@ case "$ST" in
     cd Squeak4.5
     wget -q http://ftp.squeak.org/4.5/Squeak4.5-13680.zip
     unzip Squeak4.5-13680.zip
-    wget -q http://ftp.squeak.org/4.5/SqueakV41.sources.gz
+    wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.5-13680
     ;;
