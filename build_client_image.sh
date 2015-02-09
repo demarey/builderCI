@@ -67,13 +67,15 @@ case "$ST" in
     unzip PharoCore-1.1.2.zip
     cd PharoCore-1.1.2
     IMAGE_BASE_NAME=PharoCore-1.1.2-11422
+    mv *.sources $SOURCES_PATH
   ;;
   # PharoCore-1.3 - don't use zeroconf script as the newer vms apparently cause package load errors...see Issue #69
   PharoCore-1.3)
-  cd $IMAGES_PATH
-  wget -q https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
-  unzip PharoCore-1.3-13328.zip
-  cd PharoCore-1.3
+    cd $IMAGES_PATH
+    wget -q https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
+    unzip PharoCore-1.3-13328.zip
+    cd PharoCore-1.3
+    mv *.sources $SOURCES_PATH
   ;;
   Pharo*)
     cd $IMAGES_PATH
@@ -86,7 +88,7 @@ case "$ST" in
     mv pharo ..
     mv pharo-vm ..    
   ;;
-# Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
+  # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
     cd $IMAGES_PATH
     wget -q http://ftp.squeak.org/4.3/Squeak4.3.zip
@@ -95,6 +97,7 @@ case "$ST" in
     wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.3
+    mv *.sources $SOURCES_PATH
     ;;
   # Squeak-4.4
   Squeak-4.4)
@@ -108,6 +111,7 @@ case "$ST" in
     wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.4-12327
+    mv *.sources $SOURCES_PATH
     ;;
   # Squeak-4.5
   Squeak-4.5)
@@ -121,6 +125,7 @@ case "$ST" in
     wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.5-13680
+    mv *.sources $SOURCES_PATH
     ;;
   # Squeak-Trunk
   Squeak-Trunk)
@@ -132,6 +137,7 @@ case "$ST" in
     wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=TrunkImage
+    mv *.sources $SOURCES_PATH
     ;;
 
   # unknown
@@ -141,7 +147,6 @@ case "$ST" in
   esac
 
 # move the image components into the correct location
-mv *.sources $SOURCES_PATH
 mv ${IMAGE_BASE_NAME}.changes ../${IMAGE_TARGET_NAME}.changes
 mv ${IMAGE_BASE_NAME}.image ../${IMAGE_TARGET_NAME}.image
 
