@@ -11,6 +11,7 @@
 
 # Environment variables now defined in .travis.yml
 
+set -e # exit on error
 # vm configuration
 case "$(uname -s)" in
 	"Linux")

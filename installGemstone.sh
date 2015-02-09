@@ -27,6 +27,7 @@
 #    Remind user to source defSeaside
 #=========================================================================
 
+set -e # exit on error
 # Change these to change the specific version that will be installed
 # and the download location on Amazon S3.
 if [ "$1x" = "x" ] ; then

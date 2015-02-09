@@ -11,6 +11,7 @@
 # Copyright (c) 2012,2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
+set -e # exit on error
 case "$ST" in
 
   Pharo*|Squeak*)
