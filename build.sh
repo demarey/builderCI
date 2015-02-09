@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # build.sh -- Builds GemStone repository and Pharo/Squeak images
 #   scripts. Best to be used together with Jenkins.
