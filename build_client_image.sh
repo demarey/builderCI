@@ -36,22 +36,22 @@ IMAGE_TARGET_NAME=$ST
 
 case "$ST" in
   PharoCore-1.2)
-    pharoGetURL="get.pharo.org/12"
+    pharoGetURL="get.pharo.org/12+vm"
     ;;
   PharoCore-1.3)
-    pharoGetURL="get.pharo.org/13"
+    pharoGetURL="get.pharo.org/13+vm"
     ;;
   Pharo-1.4)
-    pharoGetURL="get.pharo.org/14"
+    pharoGetURL="get.pharo.org/14+vm"
     ;;
   Pharo-2.0)
-    pharoGetURL="get.pharo.org/20"
+    pharoGetURL="get.pharo.org/20+vm"
     ;;
   Pharo-3.0)
-    pharoGetURL="get.pharo.org/30"
+    pharoGetURL="get.pharo.org/3+vm0"
     ;;
   Pharo-4.0)
-    pharoGetURL="get.pharo.org/40"
+    pharoGetURL="get.pharo.org/40+vm"
     ;;
   *)
     # noop
@@ -79,7 +79,6 @@ case "$ST" in
     cd $IMAGES_PATH
     mkdir $ST
     cd $ST
-    wget --quiet -O - get.pharo.org/travis+vm | bash
     wget --quiet -O - ${pharoGetURL} | bash
     IMAGE_BASE_NAME=Pharo
     # move VM to $IMAGES_PATH 
