@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # build_client_image.sh -- Downloads and installs the desired Smalltalk
 #   installation: PharoCore-1-3, Pharo-1.4, Pharo-2.0, Squeak-4.3, Squeak-4.4
@@ -79,7 +79,7 @@ case "$ST" in
     cd $IMAGES_PATH
     mkdir $ST
     cd $ST
-    wget --quiet -O - get.pharo.org/travis+vm | bash
+    wget --quiet -O - get.pharo.org/vm | bash
     wget --quiet -O - ${pharoGetURL} | bash
     IMAGE_BASE_NAME=Pharo
     # move VM to $IMAGES_PATH 
