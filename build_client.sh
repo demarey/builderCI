@@ -11,6 +11,7 @@
 
 # Environment variables now defined in .travis.yml
 
+set -e # exit on error
 # vm configuration
 case "$(uname -s)" in
 	"Linux")
@@ -235,13 +236,13 @@ if [ $pid ] ; then
                   	echo "$(basename $0): has take over 30 minutes before finishing ... terminating job"
 			exit 1
 		fi
-		let "tictoc = $COUNTER % 60"
+		tictoc=$(($COUNTER % 60))
 		if [ "$tictoc" -eq 0 ] ; then
                     echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
         fi
 
         if [ $SCREENSHOT ]; then
-            let "tictoctuc = $COUNTER % $SCREENSHOT"
+	    tictoctuc=$(($COUNTER % $SCREENSHOT))
             if [ "$tictoctuc" -eq 0 ] ; then
                     echo "capturing and uploading screenshot ..."
                     FILENAME=$(date +%s)
