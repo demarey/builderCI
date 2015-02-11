@@ -22,9 +22,10 @@ case "$(uname -m)" in
                 # SqueakSSL
                 sudo apt-get -qq install libssl0.9.8:i386 libssl1.0.0:i386 libkrb5-3:i386 libk5crypto3:i386 zlib1g:i386 libcomerr2:i386 libkrb5support0:i386 libkeyutils1:i386
                 
-                if [ $SCREENSHOT ]; then
-                    sudo apt-get -qq install libx11-6:i386 libgl1-mesa-swx11:i386 libsm6:i386
-                fi
+                case "$ST" in
+                    Squeak*|Pharo*)
+                      sudo apt-get -qq install libx11-6:i386 libgl1-mesa-swx11:i386 libsm6:i386
+                esac
                 ;;
         *)
                 echo "32bit os"

@@ -18,12 +18,8 @@ case "$(uname -s)" in
 		PHARO_VM="$VM_PATH/Linux/squeak"
 		PHARO_PARAM="-nosound \
         -plugins "$VM_PATH/Linux" \
-	    -encoding latin1"
-        if [ $SCREENSHOT ]; then
-            PHARO_PARAM+=" -vm display=X11"
-        else
-            PHARO_PARAM+=" -nodisplay"
-        fi
+	    -encoding latin1 \
+        -vm display=X11"
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
@@ -49,14 +45,14 @@ BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
 
 # help function
 function display_help() {
-	echo "$(basename $0) -i input -o output {-m} {-s script} {-d} {-f full-path-to-script} {-X}"
-  echo " -d skip delete of OUTPUT_PATH"
-  echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
-	echo " -i input product name, image from images-directory, or successful jenkins build"
-	echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
-	echo " -o output product name"
-	echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
-  echo " -X do not bootstrap metacello into the image"
+    echo "$(basename $0) -i input -o output {-m} {-s script} {-d} {-f full-path-to-script} {-X}"
+    echo " -d skip delete of OUTPUT_PATH"
+    echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
+    echo " -i input product name, image from images-directory, or successful jenkins build"
+    echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
+    echo " -o output product name"
+    echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
+    echo " -X do not bootstrap metacello into the image"
 }
 
 echo "PROCESSING OPTIONS"
@@ -158,11 +154,13 @@ if [ -z "$OUTPUT_IMAGE" ] ; then
 	exit 1
 fi
 
-if [ $SCREENSHOT ]; then
-    echo "STARTING xvfb"
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
-fi
+case "$ST" in
+    Squeak*|Pharo*)
+        echo "STARTING xvfb"
+        export DISPLAY=:99.0
+        sh -e /etc/init.d/xvfb start
+        ;;
+esac
 
 echo "BUILDING IMAGE FILE"
 
@@ -271,10 +269,12 @@ rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
 	rm -f *.sources
 )
 
-if [ $SCREENSHOT ]; then
-    echo "STOPPING xvfb"
-    sh -e /etc/init.d/xvfb stop
-fi
+case "$ST" in
+    Squeak*|Pharo*)
+        echo "STOPPING xvfb"
+        sh -e /etc/init.d/xvfb stop
+        ;;
+esac
 
 # success
 exit 0
