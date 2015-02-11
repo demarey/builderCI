@@ -271,5 +271,10 @@ rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
 	rm -f *.sources
 )
 
+if [ $SCREENSHOT ]; then
+    echo "STOPPING xvfb"
+    sh -e /etc/init.d/xvfb stop
+fi
+
 # success
 exit 0
