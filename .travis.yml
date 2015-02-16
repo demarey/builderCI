@@ -10,7 +10,7 @@ env:
 
    - ST=Pharo-4.0
    - ST=Squeak-Trunk # See https://github.com/dalehenrich/builderCI/issues/75 cannot use SCREENSHOT=30 with the TRUNK
-   - ST=GemStone-3.2.3
+   - ST=GemStone-3.2.4
 
    - ST=PharoCore-1.1
    - ST=PharoCore-1.2
@@ -33,6 +33,7 @@ env:
    - ST=GemStone-3.2.0
    - ST=GemStone-3.2.1
    - ST=GemStone-3.2.2
+   - ST=GemStone-3.2.3
 
 install:
    - export PROJECT_HOME="$(pwd)"
