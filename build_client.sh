@@ -58,7 +58,16 @@ function display_help() {
 echo "PROCESSING OPTIONS"
 
 # parse options
-BOOTSTRAP_METACELLO=include
+case "$ST" in
+  Pharo-3.0|Pharo-4.0)
+    # Enough of Metacello is loaded in Pharo3.0 and Pharo4.0, 
+    # that latest version of Metacello can be loaded without bootstrapping
+    # see https://github.com/dalehenrich/builderCI/issues/87
+    BOOTSTRAP_METACELLO=exclude 
+    ;;
+  *)
+     BOOTSTRAP_METACELLO=include
+esac
 DELETE_OUTPUT_PATH=true
 while getopts ":i:mXdo:f:s:?" OPT ; do
 	case "$OPT" in
