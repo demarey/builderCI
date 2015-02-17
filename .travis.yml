@@ -9,7 +9,7 @@ language: erlang
 env:
 
    - ST=Pharo-4.0
-   - ST=Squeak-Trunk # See https://github.com/dalehenrich/builderCI/issues/75 cannot use SCREENSHOT=30 with the TRUNK
+   - ST=Squeak-Trunk SCREENSHOT=60
    - ST=GemStone-3.2.4
 
    - ST=PharoCore-1.1
