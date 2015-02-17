@@ -10,6 +10,7 @@
 #
 #
 
+set -e # exit on error
 #install 32 bit libs if necessary
 case "$(uname -m)" in
         "x86_64")
