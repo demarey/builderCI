@@ -166,7 +166,6 @@ fi
 case "$ST" in
     Squeak*|Pharo*)
         echo "STARTING xvfb"
-        export DISPLAY=:99.0
         sh -e /etc/init.d/xvfb start
         ;;
 esac

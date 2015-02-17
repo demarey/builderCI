@@ -13,4 +13,4 @@ export SOURCES_PATH="$BASE_PATH/sources"
 export VM_PATH="$BASE_PATH/oneclick/Contents"
 export BUILD_CACHE="$BASE_PATH/cache"
 export GIT_PATH="$IMAGES_PATH/git_cache"
-
+export DISPLAY=:99.0
