@@ -22,7 +22,7 @@ env:
 
    - ST=PharoCore-1.1
    - ST=PharoCore-1.2
-   - ST=PharoCore-1.3
+   - ST=PharoCore-1.3  # NOTE: using build 13323, see Issue #69 for later builds
    - ST=Pharo-1.4
    - ST=Pharo-2.0 
    - ST=Pharo-3.0
