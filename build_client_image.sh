@@ -76,7 +76,7 @@ case "$ST" in
     cd $IMAGES_PATH
     wget http://files.pharo.org/image/13/13323.zip
     unzip 13323.zip
-    cd PharoCore-1.3
+    cd PharoCore-1.3-13323
     mv *.sources $SOURCES_PATH
   ;;
   Pharo*)
