@@ -74,8 +74,8 @@ case "$ST" in
   # PharoCore-1.3 - don't use zeroconf script as the newer vms apparently cause package load errors...see Issue #69
   PharoCore-1.3)
     cd $IMAGES_PATH
-    wget http://files.pharo.org/image/13/13328.zip
-    unzip 13328.zip
+    wget http://files.pharo.org/image/13/13323.zip
+    unzip 13323.zip
     cd Pharo-1.3
     IMAGE_BASE_NAME=Pharo-1.3
     mv *.sources $SOURCES_PATH
