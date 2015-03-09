@@ -1,10 +1,6 @@
 | gitPath gitCache |
 Transcript cr; show: 'travis---->travisCI.st'.
 
-"If e.g. your tests change code in the image dynamically, the image will require you to set 
-author initials which might fail these tests. So we set some dummy initials here to avoid this."
-Utilities setAuthorInitials: 'travisCI'.
-
 gitCache := 'git_cache'.
 gitPath := (Smalltalk at: #'FileDirectory' ifAbsent: [  ])
   ifNil: [ ((Smalltalk at: #'FileSystem') workingDirectory / gitCache) pathString ]
@@ -27,6 +23,10 @@ Metacello new
   baseline: '<projectName>';
   repository: 'filetree://', gitPath, '/<projectName>/<path to filetree packages root>';
   load: 'TravisCI'.
+  
+"If e.g. your tests change code in the image dynamically, the image will require you to set 
+author initials which might fail these tests. So we set some dummy initials here to avoid this."
+(Smalltalk at: #MetacelloPlatform) current authorName: 'travisCI'.
 
 "Run the tests"
 TravisCIHarness
