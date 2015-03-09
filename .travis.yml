@@ -17,8 +17,8 @@ notifications:
 env:
 
    - ST=Pharo-4.0
-   - ST=Squeak-Trunk SCREENSHOT=60
-   - ST=GemStone-3.2.4
+#   - ST=Squeak-Trunk SCREENSHOT=60
+#   - ST=GemStone-3.2.4
 
    - ST=PharoCore-1.1
    - ST=PharoCore-1.2
@@ -26,22 +26,22 @@ env:
    - ST=Pharo-1.4
    - ST=Pharo-2.0 
    - ST=Pharo-3.0
-   - ST=Squeak-4.3
-   - ST=Squeak-4.4
-   - ST=Squeak-4.5 SCREENSHOT=30
-   - ST=GemStone-2.4.4.1
-   - ST=GemStone-2.4.4.8
-   - ST=GemStone-2.4.5
-   - ST=GemStone-2.4.5.3
-   - ST=GemStone-2.4.6
-   - ST=GemStone-3.0.1
-   - ST=GemStone-3.1.0.2
-   - ST=GemStone-3.1.0.5
-   - ST=GemStone-3.1.0.6
-   - ST=GemStone-3.2.0
-   - ST=GemStone-3.2.1
-   - ST=GemStone-3.2.2
-   - ST=GemStone-3.2.3
+#   - ST=Squeak-4.3
+#   - ST=Squeak-4.4
+#   - ST=Squeak-4.5 SCREENSHOT=30
+#   - ST=GemStone-2.4.4.1
+#   - ST=GemStone-2.4.4.8
+#   - ST=GemStone-2.4.5
+#   - ST=GemStone-2.4.5.3
+#   - ST=GemStone-2.4.6
+#   - ST=GemStone-3.0.1
+#   - ST=GemStone-3.1.0.2
+#   - ST=GemStone-3.1.0.5
+#   - ST=GemStone-3.1.0.6
+#   - ST=GemStone-3.2.0
+#   - ST=GemStone-3.2.1
+#   - ST=GemStone-3.2.2
+#   - ST=GemStone-3.2.3
 
 install:
    - export PROJECT_HOME="$(pwd)"

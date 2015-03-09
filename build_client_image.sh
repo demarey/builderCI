@@ -65,7 +65,7 @@ case "$ST" in
   # PharoCore-1.1
   PharoCore-1.1)
     cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/28341/PharoCore-1.1.2.zip
+    wget http://files.pharo.org/image/11/PharoCore-1.1.2.zip
     unzip PharoCore-1.1.2.zip
     cd PharoCore-1.1.2
     IMAGE_BASE_NAME=PharoCore-1.1.2-11422
@@ -74,9 +74,10 @@ case "$ST" in
   # PharoCore-1.3 - don't use zeroconf script as the newer vms apparently cause package load errors...see Issue #69
   PharoCore-1.3)
     cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
-    unzip PharoCore-1.3-13328.zip
-    cd PharoCore-1.3
+    wget http://files.pharo.org/image/13/13328.zip
+    unzip 13328.zip
+    cd Pharo-1.3
+    IMAGE_BASE_NAME=Pharo-1.3
     mv *.sources $SOURCES_PATH
   ;;
   Pharo*)
@@ -93,10 +94,10 @@ case "$ST" in
   # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
     cd $IMAGES_PATH
-    wget -q http://ftp.squeak.org/4.3/Squeak4.3.zip
+    wget http://ftp.squeak.org/4.3/Squeak4.3.zip
     unzip Squeak4.3.zip
     cd Squeak4.3
-    wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.3
     mv *.sources $SOURCES_PATH
@@ -108,9 +109,9 @@ case "$ST" in
     # So we mimic the behaviour of 4.3.
     mkdir -p Squeak4.4
     cd Squeak4.4
-    wget -q http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
+    wget http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
     unzip Squeak4.4-12327.zip
-    wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.4-12327
     mv *.sources $SOURCES_PATH
@@ -122,9 +123,9 @@ case "$ST" in
     # So we mimic the behaviour of 4.3.
     mkdir -p Squeak4.5
     cd Squeak4.5
-    wget -q http://ftp.squeak.org/4.5/Squeak4.5-13680.zip
+    wget http://ftp.squeak.org/4.5/Squeak4.5-13680.zip
     unzip Squeak4.5-13680.zip
-    wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.5-13680
     mv *.sources $SOURCES_PATH
@@ -134,9 +135,9 @@ case "$ST" in
     cd $IMAGES_PATH
     mkdir -p TrunkImage
     cd TrunkImage
-    wget -q http://build.squeak.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/TrunkImage.zip
+    wget http://build.squeak.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/TrunkImage.zip
     unzip TrunkImage.zip
-    wget -q http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=TrunkImage
     mv *.sources $SOURCES_PATH
