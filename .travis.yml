@@ -15,7 +15,6 @@ notifications:
     on_start: false     # default: false
 
 env:
-
    - ST=Pharo-4.0
    - ST=Squeak-Trunk SCREENSHOT=60
    - ST=GemStone-3.2.4
@@ -28,7 +27,7 @@ env:
    - ST=Pharo-3.0
    - ST=Squeak-4.3
    - ST=Squeak-4.4
-   - ST=Squeak-4.5 SCREENSHOT=30
+   - ST=Squeak-4.5 SCREENSHOT=60
    - ST=GemStone-2.4.4.1
    - ST=GemStone-2.4.4.8
    - ST=GemStone-2.4.5
@@ -42,6 +41,10 @@ env:
    - ST=GemStone-3.2.1
    - ST=GemStone-3.2.2
    - ST=GemStone-3.2.3
+
+matrix:
+   allow_failures:
+   - env: ST=Squeak-Trunk SCREENSHOT=60
 
 install:
    - export PROJECT_HOME="$(pwd)"
