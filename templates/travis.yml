@@ -16,7 +16,7 @@ env:
    # Add `SCREENSHOT=XX` to Squeak builds to enable screenshot mode
    - ST=Squeak-4.3
    - ST=Squeak-4.4
-   - ST=Squeak-4.5 SCREENSHOT=30 # Take a screenshot every 30s
+   - ST=Squeak-4.5 SCREENSHOT=60 # Take a screenshot every 60s
 
    - ST=GemStone-2.4.4.1
    - ST=GemStone-2.4.4.8
@@ -31,6 +31,11 @@ env:
    - ST=GemStone-3.2.1
    - ST=GemStone-3.2.2
    - ST=GemStone-3.2.3
+
+# Allow builds to fail on certain platforms
+matrix:
+   allow_failures:
+   - env: ST=Squeak-Trunk
 
 # Boilerplate ... should be no reason to edit the install section
 install:
