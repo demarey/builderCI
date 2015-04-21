@@ -2,41 +2,39 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BuildMachineOSBuild</key>
+	<string>13F1077</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>SqueakSSL</string>
+	<string>SquealSSL</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.SqueakSSL</string>
+	<string>org.squeak.Cog.SqueakSSL</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>SqueakSSL</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>FAST</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>CFPlugInDynamicRegisterFunction</key>
-	<string></string>
-	<key>CFPlugInDynamicRegistration</key>
-	<string>NO</string>
-	<key>CFPlugInFactories</key>
-	<dict>
-		<key>00000000-0000-0000-0000-000000000000</key>
-		<string>MyFactoryFunction</string>
-	</dict>
-	<key>CFPlugInTypes</key>
-	<dict>
-		<key>00000000-0000-0000-0000-000000000000</key>
-		<array>
-			<string>00000000-0000-0000-0000-000000000000</string>
-		</array>
-	</dict>
-	<key>CFPlugInUnloadFunction</key>
-	<string></string>
+	<string>1.0</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>6C131e</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>9M2809</string>
+	<key>DTSDKName</key>
+	<string>macosx10.5</string>
+	<key>DTXcode</key>
+	<string>0620</string>
+	<key>DTXcodeBuild</key>
+	<string>6C131e</string>
 </dict>
 </plist>
