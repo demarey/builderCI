@@ -29,6 +29,7 @@ case "$(uname -m)" in
                 esac
                 case "$ST" in
                     Pharo*)
+                      sudo apt-get -qq install libssl1.0.0:i386
                       # libFT2Plugin
                       sudo apt-get -qq install libfreetype6
                 esac
