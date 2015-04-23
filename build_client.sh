@@ -11,18 +11,15 @@
 
 # Environment variables now defined in .travis.yml
 
+set -e # exit on error
 # vm configuration
 case "$(uname -s)" in
 	"Linux")
 		PHARO_VM="$VM_PATH/Linux/squeak"
 		PHARO_PARAM="-nosound \
         -plugins "$VM_PATH/Linux" \
-	    -encoding latin1"
-        if [ $SCREENSHOT ]; then
-            PHARO_PARAM+=" -vm display=X11"
-        else
-            PHARO_PARAM+=" -nodisplay"
-        fi
+	    -encoding latin1 \
+        -vm display=X11"
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
@@ -48,20 +45,29 @@ BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
 
 # help function
 function display_help() {
-	echo "$(basename $0) -i input -o output {-m} {-s script} {-d} {-f full-path-to-script} {-X}"
-  echo " -d skip delete of OUTPUT_PATH"
-  echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
-	echo " -i input product name, image from images-directory, or successful jenkins build"
-	echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
-	echo " -o output product name"
-	echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
-  echo " -X do not bootstrap metacello into the image"
+    echo "$(basename $0) -i input -o output {-m} {-s script} {-d} {-f full-path-to-script} {-X}"
+    echo " -d skip delete of OUTPUT_PATH"
+    echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
+    echo " -i input product name, image from images-directory, or successful jenkins build"
+    echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
+    echo " -o output product name"
+    echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
+    echo " -X do not bootstrap metacello into the image"
 }
 
 echo "PROCESSING OPTIONS"
 
 # parse options
-BOOTSTRAP_METACELLO=include
+case "$ST" in
+  Pharo-3.0|Pharo-4.0)
+    # Enough of Metacello is loaded in Pharo3.0 and Pharo4.0, 
+    # that latest version of Metacello can be loaded without bootstrapping
+    # see https://github.com/dalehenrich/builderCI/issues/87
+    BOOTSTRAP_METACELLO=exclude 
+    ;;
+  *)
+     BOOTSTRAP_METACELLO=include
+esac
 DELETE_OUTPUT_PATH=true
 while getopts ":i:mXdo:f:s:?" OPT ; do
 	case "$OPT" in
@@ -157,11 +163,13 @@ if [ -z "$OUTPUT_IMAGE" ] ; then
 	exit 1
 fi
 
-if [ $SCREENSHOT ]; then
-    echo "STARTING xvfb"
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
-fi
+case "$ST" in
+    Squeak*|Pharo*)
+        echo "STARTING xvfb ($DISPLAY)"
+        sh -e /etc/init.d/xvfb start
+        sleep 2
+        ;;
+esac
 
 echo "BUILDING IMAGE FILE"
 
@@ -235,13 +243,13 @@ if [ $pid ] ; then
                   	echo "$(basename $0): has take over 30 minutes before finishing ... terminating job"
 			exit 1
 		fi
-		let "tictoc = $COUNTER % 60"
+		tictoc=$(($COUNTER % 60))
 		if [ "$tictoc" -eq 0 ] ; then
                     echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
         fi
 
         if [ $SCREENSHOT ]; then
-            let "tictoctuc = $COUNTER % $SCREENSHOT"
+	    tictoctuc=$(($COUNTER % $SCREENSHOT))
             if [ "$tictoctuc" -eq 0 ] ; then
                     echo "capturing and uploading screenshot ..."
                     FILENAME=$(date +%s)
@@ -269,6 +277,13 @@ rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
 	cd "$OUTPUT_PATH"
 	rm -f *.sources
 )
+
+case "$ST" in
+    Squeak*|Pharo*)
+        echo "STOPPING xvfb"
+        sh -e /etc/init.d/xvfb stop
+        ;;
+esac
 
 # success
 exit 0

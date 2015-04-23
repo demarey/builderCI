@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # build_client_image.sh -- Downloads and installs the desired Smalltalk
 #   installation: PharoCore-1-3, Pharo-1.4, Pharo-2.0, Squeak-4.3, Squeak-4.4
@@ -10,6 +10,7 @@
 #
 #
 
+set -e # exit on error
 #install 32 bit libs if necessary
 case "$(uname -m)" in
         "x86_64")
@@ -20,11 +21,18 @@ case "$(uname -m)" in
                 # UUIDPlugin
                 sudo apt-get -qq install libuuid1:i386
                 # SqueakSSL
-                sudo apt-get -qq install libssl0.9.8:i386 libssl1.0.0:i386 libkrb5-3:i386 libk5crypto3:i386 zlib1g:i386 libcomerr2:i386 libkrb5support0:i386 libkeyutils1:i386
+                sudo apt-get -qq install libkrb5-3:i386 libk5crypto3:i386 zlib1g:i386 libcomerr2:i386 libkrb5support0:i386 libkeyutils1:i386
                 
-                if [ $SCREENSHOT ]; then
-                    sudo apt-get -qq install libx11-6:i386 libgl1-mesa-swx11:i386 libsm6:i386
-                fi
+                case "$ST" in
+                    Squeak*|Pharo*)
+                      sudo apt-get -qq install libx11-6:i386 libgl1-mesa-swx11:i386 libsm6:i386
+                esac
+                case "$ST" in
+                    Pharo*)
+                      sudo apt-get -qq install libssl1.0.0:i386
+                      # libFT2Plugin
+                      sudo apt-get -qq install libfreetype6
+                esac
                 ;;
         *)
                 echo "32bit os"
@@ -35,65 +43,58 @@ IMAGE_BASE_NAME=$ST
 IMAGE_TARGET_NAME=$ST
 
 case "$ST" in
+  PharoCore-1.2)
+    pharoGetURL="get.pharo.org/12"
+    ;;
+  PharoCore-1.3)
+    pharoGetURL="get.pharo.org/13"
+    ;;
+  Pharo-1.4)
+    pharoGetURL="get.pharo.org/14"
+    ;;
+  Pharo-2.0)
+    pharoGetURL="get.pharo.org/20"
+    ;;
+  Pharo-3.0)
+    pharoGetURL="get.pharo.org/30"
+    ;;
+  Pharo-4.0)
+    pharoGetURL="get.pharo.org/40"
+    ;;
+  *)
+    # noop
+    ;;
+esac
 
-  # PharoCore-1.0
-  PharoCore-1.0)
-    cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/26832/PharoCore-1.0.zip
-    unzip PharoCore-1.0.zip
-    cd PharoCore-1.0
-  ;;
+case "$ST" in
+
   # PharoCore-1.1
   PharoCore-1.1)
     cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/28341/PharoCore-1.1.2.zip
+    wget http://files.pharo.org/image/11/PharoCore-1.1.2.zip
     unzip PharoCore-1.1.2.zip
     cd PharoCore-1.1.2
     IMAGE_BASE_NAME=PharoCore-1.1.2-11422
+    mv *.sources $SOURCES_PATH
   ;;
-  # PharoCore-1.2
-  PharoCore-1.2)
-    cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/28553/PharoCore-1.2.2-12353.zip
-    unzip PharoCore-1.2.2-12353
-    cd PharoCore-1.2.2-12353
-    IMAGE_BASE_NAME=PharoCore-1.2.2-12353
-  ;;
-  # PharoCore-1.3
+  # PharoCore-1.3 - don't use zeroconf script as the newer vms apparently cause package load errors...see Issue #69
   PharoCore-1.3)
     cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
-    unzip PharoCore-1.3-13328.zip
-    cd PharoCore-1.3
+    wget http://files.pharo.org/image/13/13323.zip
+    unzip 13323.zip
+    cd PharoCore-1.3-13323
+    mv *.sources $SOURCES_PATH
   ;;
-  # Pharo-1.4
-  Pharo-1.4)
+  Pharo*)
     cd $IMAGES_PATH
-    wget -q https://gforge.inria.fr/frs/download.php/31259/Pharo-1.4-14557.zip
-    unzip Pharo-1.4-14557
-    cd Pharo-1.4
-  ;;
-  # Pharo-2.0
-  Pharo-2.0)
-    cd $IMAGES_PATH
-    mkdir Pharo-2.0
-    cd Pharo-2.0
-    wget --quiet -O - get.pharo.org/20+vm | bash
+    mkdir $ST
+    cd $ST
+    wget --quiet -O - get.pharo.org/vm | bash
+    wget --quiet -O - ${pharoGetURL} | bash
     IMAGE_BASE_NAME=Pharo
     # move VM to $IMAGES_PATH 
     mv pharo ..
-    mv pharo-vm ..
-  ;;
-  # Pharo-3.0
-  Pharo-3.0)
-    cd $IMAGES_PATH
-    mkdir Pharo-3.0
-    cd Pharo-3.0
-    wget --quiet -O - get.pharo.org/30+vm | bash
-    IMAGE_BASE_NAME=Pharo
-    # move VM to $IMAGES_PATH 
-    mv pharo ..
-    mv pharo-vm ..
+    mv pharo-vm ..    
   ;;
   # Pharo-4.0
   Pharo-4.0)
@@ -109,12 +110,13 @@ case "$ST" in
   # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
     cd $IMAGES_PATH
-    wget -q http://ftp.squeak.org/4.3/Squeak4.3.zip
+    wget http://ftp.squeak.org/4.3/Squeak4.3.zip
     unzip Squeak4.3.zip
     cd Squeak4.3
-    wget -q http://ftp.squeak.org/4.1/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.3
+    mv *.sources $SOURCES_PATH
     ;;
   # Squeak-4.4
   Squeak-4.4)
@@ -123,11 +125,12 @@ case "$ST" in
     # So we mimic the behaviour of 4.3.
     mkdir -p Squeak4.4
     cd Squeak4.4
-    wget -q http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
+    wget http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
     unzip Squeak4.4-12327.zip
-    wget -q http://ftp.squeak.org/4.4/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.4-12327
+    mv *.sources $SOURCES_PATH
     ;;
   # Squeak-4.5
   Squeak-4.5)
@@ -136,22 +139,24 @@ case "$ST" in
     # So we mimic the behaviour of 4.3.
     mkdir -p Squeak4.5
     cd Squeak4.5
-    wget -q http://ftp.squeak.org/4.5/Squeak4.5-13680.zip
+    wget http://ftp.squeak.org/4.5/Squeak4.5-13680.zip
     unzip Squeak4.5-13680.zip
-    wget -q http://ftp.squeak.org/4.5/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.5-13680
+    mv *.sources $SOURCES_PATH
     ;;
   # Squeak-Trunk
   Squeak-Trunk)
     cd $IMAGES_PATH
     mkdir -p TrunkImage
     cd TrunkImage
-    wget -q http://build.squeak.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/TrunkImage.zip
+    wget http://build.squeak.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/TrunkImage.zip
     unzip TrunkImage.zip
-    wget -q http://ftp.squeak.org/4.1/SqueakV41.sources.gz
+    wget http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=TrunkImage
+    mv *.sources $SOURCES_PATH
     ;;
 
   # unknown
@@ -161,7 +166,6 @@ case "$ST" in
   esac
 
 # move the image components into the correct location
-mv *.sources $SOURCES_PATH
 mv ${IMAGE_BASE_NAME}.changes ../${IMAGE_TARGET_NAME}.changes
 mv ${IMAGE_BASE_NAME}.image ../${IMAGE_TARGET_NAME}.image
 
