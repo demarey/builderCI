@@ -15,7 +15,7 @@ notifications:
     on_start: false     # default: false
 
 env:
-   - ST=Pharo-4.0
+   - ST=Pharo-5.0
    - ST=Squeak-Trunk SCREENSHOT=60
    - ST=GemStone-3.2.4
 
@@ -25,6 +25,7 @@ env:
    - ST=Pharo-1.4
    - ST=Pharo-2.0 
    - ST=Pharo-3.0
+   - ST=Pharo-4.0
    - ST=Squeak-4.3
    - ST=Squeak-4.4
    - ST=Squeak-4.5 SCREENSHOT=60

@@ -61,6 +61,9 @@ case "$ST" in
   Pharo-4.0)
     pharoGetURL="get.pharo.org/40"
     ;;
+  Pharo-5.0)
+    pharoGetURL="get.pharo.org/50"
+    ;;
   *)
     # noop
     ;;
