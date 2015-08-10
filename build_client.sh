@@ -59,7 +59,7 @@ echo "PROCESSING OPTIONS"
 
 # parse options
 case "$ST" in
-  Pharo-3.0|Pharo-4.0)
+  Pharo-3.0|Pharo-4.0|Pharo-5.0)
     # Enough of Metacello is loaded in Pharo3.0 and Pharo4.0, 
     # that latest version of Metacello can be loaded without bootstrapping
     # see https://github.com/dalehenrich/builderCI/issues/87
